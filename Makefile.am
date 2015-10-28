@@ -149,6 +149,16 @@ conf_DATA += conf/janus.plugin.audiobridge.cfg.sample
 EXTRA_DIST += conf/janus.plugin.audiobridge.cfg.sample
 endif
 
+if ENABLE_PLUGIN_RTCONFERENCE
+plugin_LTLIBRARIES += plugins/libjanus_rtconference.la
+plugins_libjanus_rtconference_la_SOURCES = plugins/janus_rtconference.c
+plugins_libjanus_rtconference_la_CFLAGS = $(plugins_cflags)
+plugins_libjanus_rtconference_la_LDFLAGS = $(plugins_ldflags) -lopus
+plugins_libjanus_rtconference_la_LIBADD = $(plugins_libadd)
+conf_DATA += conf/janus.plugin.rtconference.cfg.sample
+EXTRA_DIST += conf/janus.plugin.rtconference.cfg.sample
+endif
+
 if ENABLE_PLUGIN_ECHOTEST
 plugin_LTLIBRARIES += plugins/libjanus_echotest.la
 plugins_libjanus_echotest_la_SOURCES = plugins/janus_echotest.c

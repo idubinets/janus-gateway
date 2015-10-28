@@ -231,6 +231,12 @@ AC_ARG_ENABLE([plugin-audiobridge],
               [],
               [enable_plugin_audiobridge=yes])
 
+AC_ARG_ENABLE([plugin-rtconference],
+              [AS_HELP_STRING([--disable-plugin-rtconference],
+                              [Disable rtconference plugin])],
+              [],
+              [enable_plugin_rtconference=yes])
+
 AC_ARG_ENABLE([plugin-echotest],
               [AS_HELP_STRING([--disable-plugin-echotest],
                               [Disable echotest plugin])],
@@ -277,8 +283,9 @@ PKG_CHECK_MODULES([OPUS],
                   [opus],
                   [],
                   [
-                    AC_MSG_NOTICE(libopus not found. The audiobridge plugin will not be built.)
+                    AC_MSG_NOTICE(libopus not found. The audiobridge and rtconference plugins will not be built.)
                     enable_plugin_audiobridge=no
+                    enable_plugin_rtconference=no
                   ])
 
 PKG_CHECK_MODULES([OGG],
@@ -290,6 +297,7 @@ PKG_CHECK_MODULES([OGG],
                   ])
 
 AM_CONDITIONAL([ENABLE_PLUGIN_AUDIOBRIDGE], [test "x$enable_plugin_audiobridge" = "xyes"])
+AM_CONDITIONAL([ENABLE_PLUGIN_RTCONFERENCE], [test "x$enable_plugin_rtconference" = "xyes"])
 AM_CONDITIONAL([ENABLE_PLUGIN_ECHOTEST], [test "x$enable_plugin_echotest" = "xyes"])
 AM_CONDITIONAL([ENABLE_PLUGIN_RECORDPLAY], [test "x$enable_plugin_recordplay" = "xyes"])
 AM_CONDITIONAL([ENABLE_PLUGIN_SIP], [test "x$enable_plugin_sip" = "xyes"])
@@ -374,6 +382,9 @@ AM_COND_IF([ENABLE_PLUGIN_SIP],
 AM_COND_IF([ENABLE_PLUGIN_AUDIOBRIDGE],
 	[echo "    Audio Bridge:          yes"],
 	[echo "    Audio Bridge:          no"])
+AM_COND_IF([ENABLE_PLUGIN_RTCONFERENCE],
+	[echo "    RTConference:          yes"],
+	[echo "    RTConference:          no"])
 AM_COND_IF([ENABLE_PLUGIN_VIDEOROOM],
 	[echo "    Video Room:            yes"],
 	[echo "    Video Room:            no"])
